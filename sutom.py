@@ -33,34 +33,33 @@ class Sutom:
         i=0
         while chr(ord(self.mot[0])-1)< self.mot_trouver[0] and i < self.max:
             if (self.liste):
-                mot = self.liste_mot[i]
+                self.mot = self.liste_mot[i]
             else:
-                mot = self.file.readline()
-            if(len(mot) == self.nb_lettre +1):
+                self.mot = self.file.readline()
+            if(len(self.mot) == self.nb_lettre +1):
                 res = True
                 j = 0
                 while res and j< self.nb_lettre_connue:
-                    res = self.lettre_connue[j] in mot
+                    res = self.lettre_connue[j] in self.mot
                     j+=1
                 if (res):
                     j = 0
                     while res and j < self.nb_lettre_faux:
-                        res = self.lettre_faux[j] not in mot
+                        res = self.lettre_faux[j] not in self.mot
                         j += 1
                 if (res):
                     j = 0
                     while res and j< self.nb_lettre:
                         if (self.mot_trouver[j] != '_'):
-                            res = self.mot_trouver[j] == mot[j]
+                            res = self.mot_trouver[j] == self.mot[j]
                         if (res):
                             if (self.emplacement_faux[j] != '_'):
-                                res = self.emplacement_faux[j] != mot[j]
+                                res = self.emplacement_faux[j] != self.mot[j]
                         j+=1
                 if (res):
-                    total +=1
-                    self.liste_mot.append(mot)
+                    self.total +=1
+                    self.liste_mot.append(self.mot)
             i+=1
-        max = total
-        liste_mot = self.liste_mot[len(self.liste_mot) - total:]
-        liste = True
-        print(total)
+        self.max = self.total
+        self.liste_mot = self.liste_mot[len(self.liste_mot) - self.total:]
+        self.liste = True
