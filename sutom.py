@@ -16,21 +16,14 @@ class Sutom:
         self.nb_lettre = 0
         self.trouver = False
 
-    def demande(self):
-        global lettre_connue
-        lettre_connue = input('lettre connue')
-        global nb_lettre_connue
-        nb_lettre_connue = len(lettre_connue)
-        global mot_trouver
-        mot_trouver = input('mot (_ pour les lettres vide)')
-        global nb_lettre
-        nb_lettre = len(mot_trouver)
-        global lettre_faux
-        lettre_faux = input('lettre faux')
-        global nb_lettre_faux
-        nb_lettre_faux = len(lettre_faux)
-        global emplacement_faux
-        emplacement_faux = input('lettres mauvais emplacement (_ pour les lettres vide')
+    def demande(self, res):
+        self.lettre_connue = res[1]
+        self.nb_lettre_connue = not len(self.lettre_connue)
+        self.mot_trouver = res[2]
+        self.nb_lettre = len(self.mot_trouver)
+        self.lettre_faux = res[3]
+        self.nb_lettre_faux = len(self.lettre_faux)
+        self.emplacement_faux = res[4]
 
     def initisalisation(self):
         global mot
