@@ -26,10 +26,8 @@ class Sutom:
         self.emplacement_faux = res[3]
 
     def initisalisation(self):
-        global mot
-        mot = 'A'
-        global total
-        total = 0
+        self.mot = 'A'
+        self.total = 0
 
     def recherche(self):
         i=0

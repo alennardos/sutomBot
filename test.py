@@ -19,8 +19,8 @@ def testerMot(mot):
     ok.click()
 
 def initialize():
-    sutom.initisalisation()
     sutom.demande([driver.find_element(By.ID, "L1C0").text, "","",""])
+    sutom.initisalisation()
     sutom.recherche()
 
 def resultat(ligne):
