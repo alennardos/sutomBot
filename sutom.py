@@ -17,13 +17,13 @@ class Sutom:
         self.trouver = False
 
     def demande(self, res):
-        self.lettre_connue = res[1]
+        self.lettre_connue = res[0]
         self.nb_lettre_connue = not len(self.lettre_connue)
-        self.mot_trouver = res[2]
+        self.mot_trouver = res[1]
         self.nb_lettre = len(self.mot_trouver)
-        self.lettre_faux = res[3]
+        self.lettre_faux = res[2]
         self.nb_lettre_faux = len(self.lettre_faux)
-        self.emplacement_faux = res[4]
+        self.emplacement_faux = res[3]
 
     def initisalisation(self):
         global mot
@@ -31,57 +31,38 @@ class Sutom:
         global total
         total = 0
 
-    def recherche(self, mot, nb_lettre, lettre_connue, nb_lettre_connue, mot_trouver, lettre_faux, nb_lettre_faux, emplacement_faux):
+    def recherche(self):
         i=0
-        global parcour
-        global liste
-        global total
-        global max
-        global liste_mot
-        while chr(ord(mot[0])-1)<mot_trouver[0] and i < max:
-            if (liste):
-                mot = liste_mot[i]
+        while chr(ord(self.mot[0])-1)< self.mot_trouver[0] and i < self.max:
+            if (self.liste):
+                mot = self.liste_mot[i]
             else:
-                mot = file.readline()
-            if(len(mot) == nb_lettre+1):
+                mot = self.file.readline()
+            if(len(mot) == self.nb_lettre +1):
                 res = True
                 j = 0
-                while res and j<nb_lettre_connue:
-                    res = lettre_connue[j] in mot
+                while res and j< self.nb_lettre_connue:
+                    res = self.lettre_connue[j] in mot
                     j+=1
                 if (res):
                     j = 0
-                    while res and j < nb_lettre_faux:
-                        res = lettre_faux[j] not in mot
+                    while res and j < self.nb_lettre_faux:
+                        res = self.lettre_faux[j] not in mot
                         j += 1
                 if (res):
                     j = 0
-                    while res and j<nb_lettre:
-                        if (mot_trouver[j] !='_'):
-                            res = mot_trouver[j] == mot[j]
+                    while res and j< self.nb_lettre:
+                        if (self.mot_trouver[j] != '_'):
+                            res = self.mot_trouver[j] == mot[j]
                         if (res):
-                            if (emplacement_faux[j] != '_'):
-                                res = emplacement_faux[j] != mot[j]
+                            if (self.emplacement_faux[j] != '_'):
+                                res = self.emplacement_faux[j] != mot[j]
                         j+=1
                 if (res):
                     total +=1
-                    liste_mot.append(mot)
-                    print(mot)
+                    self.liste_mot.append(mot)
             i+=1
         max = total
-        liste_mot = liste_mot[len(liste_mot)-total:]
+        liste_mot = self.liste_mot[len(self.liste_mot) - total:]
         liste = True
         print(total)
-
-    parcour = 0
-    while not trouver:
-        demande()
-        initisalisation()
-        recherche( mot, nb_lettre, lettre_connue, nb_lettre_connue, mot_trouver, lettre_faux, nb_lettre_faux, emplacement_faux)
-        trouver = int(input('trouver ? 1 = oui / 0 = non'))
-        parcour+=1
-
-
-    print('fin')
-    file.close()
-    quit()

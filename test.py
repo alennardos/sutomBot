@@ -1,7 +1,7 @@
 import time
+from sutom import Sutom
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 driver = webdriver.Edge()
@@ -10,9 +10,18 @@ elem = driver.find_element(By.ID, "btnStart")
 elem.click()
 time.sleep(1)
 zoneText = driver.find_element(By.ID, "p")
+ok = driver.find_element(By.ID, "ok")
+
+sutom = Sutom()
+
+def testerMot(mot):
+    zoneText.send_keys(mot)
+    ok.click()
 
 def initialize():
-
+    sutom.initisalisation()
+    sutom.demande([driver.find_element(By.ID, "L1C0").text, "","",""])
+    sutom.recherche()
 
 def resultat(ligne):
     lettre_connue =''
@@ -40,6 +49,8 @@ def resultat(ligne):
             emplacementFaux+='lettre'
     return (lettre_connue, mot, lettre_faux, emplacementFaux)
 
+initialize()
+testerMot(sutom.mot[0])
 mot = resultat(1)
 
 print(mot)
