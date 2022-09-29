@@ -19,7 +19,8 @@ def testerMot(mot):
     ok.click()
 
 def initialize():
-    sutom.demande([driver.find_element(By.ID, "L1C0").text, "","",""])
+    lettre = driver.find_element(By.ID, "L1C0").text
+    sutom.demande([lettre, lettre+"_______","","________"])
     sutom.initisalisation()
     sutom.recherche()
 
@@ -50,7 +51,7 @@ def resultat(ligne):
     return (lettre_connue, mot, lettre_faux, emplacementFaux)
 
 initialize()
-testerMot(sutom.mot[0])
+testerMot(sutom.liste_mot[0])
 mot = resultat(1)
 
 print(mot)
