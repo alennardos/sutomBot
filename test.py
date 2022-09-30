@@ -54,9 +54,13 @@ def resultat(ligne):
 
 def tourDeJeu(numero):
     sutom.demande(resultat(numero))
+    sutom.initisalisation()
     sutom.recherche()
     testerMot(sutom.liste_mot[0])
 
 initialize()
-time.sleep(5)
-tourDeJeu(1)
+
+for i in range(1,5):
+    time.sleep(3.5)
+    tourDeJeu(i)
+
