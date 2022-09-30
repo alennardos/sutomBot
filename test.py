@@ -36,20 +36,19 @@ def resultat(ligne):
         prop = elem.get_attribute("class")
         lettre = elem.text
         if prop == "cr":
-            if not lettre in lettre_connue:
-                lettre_connue += lettre
+            lettre_connue += lettre
             mot+=lettre
             emplacementFaux +='-'
         elif prop == "cb":
             if lettre not in lettre_connue and lettre not in lettre_faux:
                 lettre_faux+=lettre
             mot+='_'
-            emplacementFaux+='_'
+            emplacementFaux+=lettre
         else:
             if not lettre in lettre_connue:
                 lettre_connue+=lettre
             mot+='_'
-            emplacementFaux+='lettre'
+            emplacementFaux+=lettre
     return (lettre_connue, mot, lettre_faux, emplacementFaux)
 
 def tourDeJeu(numero):
@@ -60,7 +59,10 @@ def tourDeJeu(numero):
 
 initialize()
 
-for i in range(1,5):
+i = 1
+fin = False
+while i<6 and not fin:
     time.sleep(3.5)
     tourDeJeu(i)
+    i+=1
 
