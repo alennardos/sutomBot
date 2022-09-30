@@ -15,6 +15,7 @@ ok = driver.find_element(By.ID, "ok")
 sutom = Sutom()
 
 def testerMot(mot):
+    zoneText = driver.find_element(By.ID, "p")
     zoneText.send_keys(mot)
     ok.click()
 
@@ -23,6 +24,7 @@ def initialize():
     sutom.demande([lettre, lettre+"_______","","________"])
     sutom.initisalisation()
     sutom.recherche()
+    testerMot(sutom.liste_mot[0])
 
 def resultat(ligne):
     lettre_connue =''
@@ -39,7 +41,7 @@ def resultat(ligne):
             mot+=lettre
             emplacementFaux +='-'
         elif prop == "cb":
-            if not lettre in lettre_connue:
+            if lettre not in lettre_connue and lettre not in lettre_faux:
                 lettre_faux+=lettre
             mot+='_'
             emplacementFaux+='_'
@@ -50,15 +52,11 @@ def resultat(ligne):
             emplacementFaux+='lettre'
     return (lettre_connue, mot, lettre_faux, emplacementFaux)
 
+def tourDeJeu(numero):
+    sutom.demande(resultat(numero))
+    sutom.recherche()
+    testerMot(sutom.liste_mot[0])
+
 initialize()
-testerMot(sutom.liste_mot[0])
-mot = resultat(1)
-
-print(mot)
-
-"""assert "Python" in driver.title
-elem = driver.find_element(By.NAME, "q")
-elem.clear()
-elem.send_keys("pycon")
-elem.send_keys(Keys.RETURN)
-assert "No results found." not in driver.pag"""
+time.sleep(5)
+tourDeJeu(1)
