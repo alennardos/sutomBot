@@ -12,8 +12,6 @@ time.sleep(1)
 zoneText = driver.find_element(By.ID, "p")
 ok = driver.find_element(By.ID, "ok")
 
-sutom = Sutom()
-
 def testerMot(mot):
     zoneText = driver.find_element(By.ID, "p")
     zoneText.send_keys(mot)
@@ -36,9 +34,11 @@ def resultat(ligne):
         prop = elem.get_attribute("class")
         lettre = elem.text
         if prop == "cr":
+            if lettre in lettre_faux:
+                lettre_faux = lettre_faux.replace(lettre, '')
             lettre_connue += lettre
             mot+=lettre
-            emplacementFaux +='-'
+            emplacementFaux +='_'
         elif prop == "cb":
             if lettre not in lettre_connue and lettre not in lettre_faux:
                 lettre_faux+=lettre
@@ -51,13 +51,17 @@ def resultat(ligne):
             emplacementFaux+=lettre
     return (lettre_connue, mot, lettre_faux, emplacementFaux)
 
-def tourDeJeu(numero):
+def tourDeJeu(sutom, numero):
     sutom.demande(resultat(numero))
     sutom.initisalisation()
     sutom.recherche()
-    testerMot(sutom.liste_mot[0])
-
+    try:
+        testerMot(sutom.liste_mot[0])
+    except:
+        print("Error")
+        sutom.initisalisation()
 def trouverMot():
+    sutom = Sutom()
     initialize(sutom)
     i = 1
     fin = False
@@ -65,11 +69,11 @@ def trouverMot():
         time.sleep(3.5)
         sutom.demande(resultat(i))
         if '_' in sutom.get_mot_trouver():
-            tourDeJeu(i)
+            tourDeJeu(sutom, i)
             i+=1
         else:
             break
 
-for i in range(3):
+for i in range(15):
     trouverMot()
     time.sleep(5)
