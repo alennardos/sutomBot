@@ -19,12 +19,12 @@ def testerMot(mot):
     zoneText.send_keys(mot)
     ok.click()
 
-def initialize():
+def initialize(s):
     lettre = driver.find_element(By.ID, "L1C0").text
-    sutom.demande([lettre, lettre+"_______","","________"])
-    sutom.initisalisation()
-    sutom.recherche()
-    testerMot(sutom.liste_mot[0])
+    s.demande([lettre, lettre+"_______","","________"])
+    s.initisalisation()
+    s.recherche()
+    testerMot(s.liste_mot[0])
 
 def resultat(ligne):
     lettre_connue =''
@@ -57,12 +57,19 @@ def tourDeJeu(numero):
     sutom.recherche()
     testerMot(sutom.liste_mot[0])
 
-initialize()
+def trouverMot():
+    initialize(sutom)
+    i = 1
+    fin = False
+    while i<6 and not fin:
+        time.sleep(3.5)
+        sutom.demande(resultat(i))
+        if '_' in sutom.get_mot_trouver():
+            tourDeJeu(i)
+            i+=1
+        else:
+            break
 
-i = 1
-fin = False
-while i<6 and not fin:
-    time.sleep(3.5)
-    tourDeJeu(i)
-    i+=1
-
+for i in range(3):
+    trouverMot()
+    time.sleep(5)

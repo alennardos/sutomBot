@@ -29,6 +29,9 @@ class Sutom:
         self.mot = 'A'
         self.total = 0
 
+    def get_mot_trouver(self):
+        return str(self.mot_trouver)
+
     def recherche(self):
         i=0
         while chr(ord(self.mot[0])-1)< self.mot_trouver[0] and i < self.max:
