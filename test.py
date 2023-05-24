@@ -6,16 +6,26 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Edge()
 driver.get("http://gregfresnel.free.fr/WebMotus/WebGMotus.php")
-elem = driver.find_element(By.ID, "btnStart")
-elem.click()
-time.sleep(1)
-zoneText = driver.find_element(By.ID, "p")
-ok = driver.find_element(By.ID, "ok")
+#elem = driver.find_element(By.ID, "btnStart")
+#elem.click()
+
+time.sleep(5)
+
+
+ok = driver.find_element(By.ID, "clEnterA")
 
 def testerMot(mot):
-    zoneText = driver.find_element(By.ID, "p")
-    zoneText.send_keys(mot)
-    ok.click()
+    try:
+        mot = mot[:len(mot) - 1]
+        mot2 = zoneText.text
+        mot2 = mot2[len(mot2)-15:]
+        for i in range(len(mot)):
+            if mot2[i*2] == '.' or mot2[i*2] == mot[i]:
+                elem = driver.find_element(By.ID, "cl"+mot[i])
+                elem.click()
+        ok.click()
+    except:
+        testerMot(mot)
 
 def initialize(s):
     lettre = driver.find_element(By.ID, "L1C0").text
@@ -66,14 +76,18 @@ def trouverMot():
     i = 1
     fin = False
     while i<6 and not fin:
-        time.sleep(3.5)
-        sutom.demande(resultat(i))
-        if '_' in sutom.get_mot_trouver():
-            tourDeJeu(sutom, i)
-            i+=1
-        else:
-            break
+        chargement = False
+        while not chargement:
+            chargement = driver.find_element(By.ID, "L" + str(i + 1) + "C0").text == sutom.mot_trouver[0]
+            time.sleep(0.5)
+            if driver.find_element(By.ID, "L1C1").text == ".":
+                print("aaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                fin = True
+                chargement = True
+            if not fin:
+                tourDeJeu(sutom, i)
+                i+=1
 
-for i in range(15):
+while True:
+    zoneText = driver.find_element(By.CLASS_NAME, "tabJeu")
     trouverMot()
-    time.sleep(5)
