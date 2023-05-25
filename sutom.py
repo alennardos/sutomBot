@@ -18,7 +18,7 @@ class Sutom:
 
     def demande(self, res):
         self.lettre_connue = res[0]
-        self.nb_lettre_connue = not len(self.lettre_connue)
+        self.nb_lettre_connue = len(self.lettre_connue)
         self.mot_trouver = res[1]
         self.nb_lettre = len(self.mot_trouver)
         self.lettre_faux = res[2]
